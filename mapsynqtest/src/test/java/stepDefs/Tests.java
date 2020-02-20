@@ -23,6 +23,8 @@ public class Tests extends TestBase {
 	@Given("^user sends a request to mapsynq$")
 	public void user_sends_a_request_to_mapsynq() throws Throwable {
 		resp = apiReusableMethods.getResponse(testConfig.getUrl());
+		driver = reusableMethods.getDriver(testConfig);
+		driver.get(testConfig.getUrl());
 	}
 
 	@Then("^validates the status code of the response$")

@@ -14,6 +14,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.ie.InternetExplorerOptions;
+import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -21,6 +26,8 @@ import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.github.bonigarcia.wdm.ChromeDriverManager;
+import io.github.bonigarcia.wdm.FirefoxDriverManager;
+import io.github.bonigarcia.wdm.InternetExplorerDriverManager;
 import models.TestConfig;
 
 public class ReusableMethods {
@@ -135,10 +142,22 @@ public class ReusableMethods {
 				driver = new ChromeDriver(chromeOptions);
 			}
 			else if(browser.equalsIgnoreCase("firefox")) {
-				
+				DesiredCapabilities capability = DesiredCapabilities.firefox();
+				FirefoxDriverManager.firefoxdriver().setup();
+				FirefoxOptions firefoxOptions = new FirefoxOptions();
+				firefoxOptions.merge(capability);
+				driver = new FirefoxDriver(firefoxOptions);
 			}
 			else if(browser.equalsIgnoreCase("ie")) {
+				DesiredCapabilities capability = DesiredCapabilities.internetExplorer();
+				InternetExplorerDriverManager.iedriver().setup();
+				InternetExplorerOptions ieOptions = new InternetExplorerOptions();
+				  ieOptions.setCapability(CapabilityType.ForSeleniumServer.ENSURING_CLEAN_SESSION, true);
+				  ieOptions.setCapability(InternetExplorerDriver.ENABLE_PERSISTENT_HOVERING, true);
+				  ieOptions.setCapability("requireWindowFocus", true);
 				
+				ieOptions.merge(capability);
+				driver = new InternetExplorerDriver(ieOptions);
 			}
 		}
 
