@@ -3,6 +3,7 @@ package stepDefs;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import org.junit.AfterClass;
@@ -59,7 +60,7 @@ public class Tests extends TestBase {
 			//test.log(LogStatus.PASS, "The site has been launched");
 		}
 		catch(Exception e) {
-			//test.log(LogStatus.FAIL, e.getMessage());
+			Reporter.addStepLog(e.getMessage());
 		}
 	}
 
@@ -84,13 +85,55 @@ public class Tests extends TestBase {
 	    	//test.log(LogStatus.FAIL, e.getMessage());
 	    }
 	}
+	
+
+	@Given("^validates that live is the current header which is active$")
+	public void validates_that_live_is_the_current_header_which_is_active() {
+		try {
+			Assert.assertTrue("Live is not active", landingPage.validateLiveIsActive());
+		}
+		catch(Exception e) {
+			
+		}
+	}
+
+	@Given("^incidents is the current tab which is active$")
+	public void incidents_is_the_current_tab_which_is_active() {
+		try {
+			Assert.assertTrue("Incidents is not active", landingPage.validateIncidentsIsActive());
+		}
+		catch(Exception e) {
+			
+		}
+	}
+
+	@Then("^system displays the list of incidents$")
+	public void system_displays_the_list_of_incidents() {
+		try {
+			Assert.assertTrue("No incident is being displayed", landingPage.validateIncidentsAreDisplayed());
+		}
+		catch(Exception e) {
+			
+		}
+	}
+
+	@Then("^upon clicking each incident system displays the incident on the map$")
+	public void upon_clicking_each_incident_system_displays_the_incident_on_the_map() {
+		try {
+			Assert.assertTrue("Incident(s) found not clickable", landingPage.clickEachIncident().size()==0);
+		}
+		catch(Exception e) {
+			
+		}
+	}
+
+
 
 	@After
 	public void cleanUp()
 	{
 		if(driver!=null)
 			driver.quit();
-		//report.endTest(test);
 	}
 	
 	

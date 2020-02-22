@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
@@ -44,7 +45,7 @@ public class ReusableMethods {
 
 	public WebDriver driver;
 	
-	public WebDriver getDriver(TestConfig testConfig){
+	public WebDriver getDriver(TestConfig testConfig) {
 		try{
 			String browser = testConfig.getBrowser();
 			
@@ -67,17 +68,18 @@ public class ReusableMethods {
 				DesiredCapabilities capability = DesiredCapabilities.internetExplorer();
 				InternetExplorerDriverManager.iedriver().setup();
 				InternetExplorerOptions ieOptions = new InternetExplorerOptions();
-				  ieOptions.setCapability(CapabilityType.ForSeleniumServer.ENSURING_CLEAN_SESSION, true);
-				  ieOptions.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
-				  ieOptions.setCapability(InternetExplorerDriver.IGNORE_ZOOM_SETTING, true);
-				  ieOptions.merge(capability);
+				ieOptions.setCapability(CapabilityType.ForSeleniumServer.ENSURING_CLEAN_SESSION, true);
+				ieOptions.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
+				ieOptions.setCapability(InternetExplorerDriver.IGNORE_ZOOM_SETTING, true);
+				ieOptions.merge(capability);
 				driver = new InternetExplorerDriver(ieOptions);
 			}
+			else
+				throw new Exception("Browser name does not match with any of the choices");
 		}
 
 		catch(Exception e){
-			System.out.println(e);
-			Logger.getLogger("Exception is" +e);
+			Reporter.addStepLog(e.getMessage());
 		}
 		return driver;
 	}
@@ -86,7 +88,7 @@ public class ReusableMethods {
 	{
 		try {
 			driver.manage().window().maximize();
-			driver.manage().timeouts().pageLoadTimeout(25, TimeUnit.SECONDS);
+			driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
 			driver.get(url);
 			waitForPageReady();
 		}
@@ -223,6 +225,19 @@ public class ReusableMethods {
 			Logger.getLogger("Exception is" +e);
 		}
 		return destinationPath.toString();
+	}
+	
+	public boolean validateIfActive(WebElement element, String classVal) {
+		boolean isActive = false;
+		try {
+			List<String> classes = Arrays.asList(element.getAttribute("class").split(" "));
+			if(classes.contains(classVal))
+				isActive = true;
+		}
+		catch(Exception e) {
+			
+		}
+		return isActive;
 	}
 		   
 }
