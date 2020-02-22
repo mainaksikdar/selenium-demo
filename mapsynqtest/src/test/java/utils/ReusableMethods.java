@@ -1,16 +1,21 @@
 package utils;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.UnexpectedAlertBehaviour;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -27,6 +32,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.cucumber.listener.Reporter;
 
 import io.github.bonigarcia.wdm.ChromeDriverManager;
 import io.github.bonigarcia.wdm.FirefoxDriverManager;
@@ -173,7 +180,7 @@ public class ReusableMethods {
 		return element;
 	}
 
-	public void verifyIfPresent(WebElement element){
+	public void verifyIfPresent(WebDriver driver, WebElement element, String name) throws Exception{
 		
 		boolean isPresent = false;
 		
@@ -184,7 +191,9 @@ public class ReusableMethods {
 		}
 
 		catch(Exception e){
-			Logger.getLogger("Exception is" +e);
+			Reporter.addStepLog("Issue with "+name+" element, Exception is " +e);
+			Reporter.addScreenCaptureFromPath(captureScreenshot(driver));
+			
 		}
 
 		finally{
@@ -202,4 +211,19 @@ public class ReusableMethods {
 			Logger.getLogger("Exception is" +e);
 		}
 	}
+	
+	public String captureScreenshot(WebDriver driver) {
+		File destinationPath=null;
+		try {
+			File sourcePath = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+			destinationPath = new File(System.getProperty("user.dir") + "/target/cucumber-reports/screenshots/" + (new Date().getTime()) + ".png");
+			FileUtils.copyFile(sourcePath, destinationPath);
+		}
+		catch(Exception e) {
+			Logger.getLogger("Exception is" +e);
+		}
+		return destinationPath.toString();
+	}
+		   
 }
+

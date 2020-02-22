@@ -9,6 +9,8 @@ import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
+import com.cucumber.listener.Reporter;
+
 import utils.ReusableMethods;
 
 public class LandingPage {
@@ -52,22 +54,22 @@ public class LandingPage {
 	public void validateMapIsDisplayed()
 	{
 		try {
-			reusableMethods.verifyIfPresent(mapSection);
+			reusableMethods.verifyIfPresent(driver, mapSection, "mapSection");
 		}
 		catch(Exception e) {
-			Logger.getLogger("Exception is "+e);
+			Reporter.addStepLog("Exception is "+e);
 		}
 	}
 	
 	public void validateHeadersOnLeftTab()
 	{
 		try	{
-			reusableMethods.verifyIfPresent(directionsTab);
-			reusableMethods.verifyIfPresent(personalTab);
-			reusableMethods.verifyIfPresent(liveTab);
-			reusableMethods.verifyIfPresent(incidentsHeading);
-			reusableMethods.verifyIfPresent(camerasHeading);
-			reusableMethods.verifyIfPresent(tollsHeading);
+			reusableMethods.verifyIfPresent(driver, directionsTab, "directionsTab");
+			reusableMethods.verifyIfPresent(driver, personalTab, "personalTab");
+			reusableMethods.verifyIfPresent(driver, liveTab, "liveTab");
+			reusableMethods.verifyIfPresent(driver, incidentsHeading, "incidentsHeading");
+			reusableMethods.verifyIfPresent(driver, camerasHeading, "camerasHeading");
+			reusableMethods.verifyIfPresent(driver, tollsHeading, "tollsHeading");
 		}
 		catch (Exception e) {
 			Logger.getLogger("Exception is "+e);

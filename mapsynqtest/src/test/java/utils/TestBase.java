@@ -3,7 +3,12 @@ package utils;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Date;
 import java.util.Properties;
+
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+
 import models.TestConfig;
 
 public class TestBase {
@@ -22,6 +27,7 @@ public class TestBase {
 			reusableMethods = new ReusableMethods();
 			apiReusableMethods = new APIReusableMethods();
 			testConfig = new TestConfig(prop.getProperty("browser"), prop.getProperty("url"), prop.getProperty("os"));
+			
 		} 
 		catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -33,4 +39,7 @@ public class TestBase {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	
 }
