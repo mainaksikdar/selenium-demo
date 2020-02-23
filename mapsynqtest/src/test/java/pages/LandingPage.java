@@ -1,5 +1,6 @@
 package pages;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -72,28 +73,42 @@ public class LandingPage {
 	@FindBy(how = How.XPATH, using = "//body//label")
 	WebElement tollName;
 	
+	@FindBy(how = How.XPATH, using = "//a[@class='header_logo sprite']")
+	WebElement logo;
+	
 	public LandingPage(WebDriver driver) {
 		try {
 			this.driver=driver;
 			reusableMethods = new ReusableMethods();
-			PageFactory.initElements(new AjaxElementLocatorFactory(driver, 30), this);
+			PageFactory.initElements(new AjaxElementLocatorFactory(driver, 10), this);
 		}
 
 		catch(Exception e) {
-			Logger.getLogger("Exception is" +e);
+			Reporter.addStepLog("Exception is " +e);
 		}
 	}
 	
-	public void validateMapIsDisplayed() {
+	public void logoDisplayed() throws Exception{
+		try {
+			reusableMethods.verifyIfPresent(driver, logo, "logo");
+		}
+		catch(Exception e) {
+			Reporter.addStepLog("Exception is " +e);
+			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
+		}
+	}
+	
+	public void validateMapIsDisplayed() throws IOException {
 		try {
 			reusableMethods.verifyIfPresent(driver, mapSection, "mapSection");
 		}
 		catch(Exception e) {
-			Reporter.addStepLog("Exception is "+e);
+			Reporter.addStepLog("Exception is " +e);
+			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
 		}
 	}
 	
-	public void validateHeadersOnLeftTab()	{
+	public void validateHeadersOnLeftTab() throws IOException	{
 		try	{
 			reusableMethods.verifyIfPresent(driver, directionsTab, "directionsTab");
 			reusableMethods.verifyIfPresent(driver, personalTab, "personalTab");
@@ -103,42 +118,46 @@ public class LandingPage {
 			reusableMethods.verifyIfPresent(driver, tollsHeading, "tollsHeading");
 		}
 		catch (Exception e) {
-			Logger.getLogger("Exception is "+e);
+			Reporter.addStepLog("Exception is " +e);
+			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
 		}
 	}
 	
-	public boolean validateLiveIsActive() {
+	public boolean validateLiveIsActive() throws IOException {
 		boolean isActive = false;
 		
 		try {
 			isActive = reusableMethods.validateIfActive(liveTab, "tab_active");
 		}
 		catch(Exception e) {
-			
+			Reporter.addStepLog("Exception is " +e);
+			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
 		}
 		
 		return isActive;
 	}
 	
-	public boolean validateIncidentsIsActive() {
+	public boolean validateIncidentsIsActive() throws IOException {
 		boolean isActive = false;
 		try {
 			isActive = reusableMethods.validateIfActive(incidentsHeading, "ui-state-active");
 		}
 		catch(Exception e) {
-			
+			Reporter.addStepLog("Exception is " +e);
+			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
 		}
 		return isActive;
 	}
 	
-	public boolean validateIncidentsAreDisplayed() {
+	public boolean validateIncidentsAreDisplayed() throws IOException {
 		boolean incidentsShown=false;
 		try {
 			if(individualIncident.size()>=1)
 				incidentsShown = true;
 		}
 		catch(Exception e) {
-			
+			Reporter.addStepLog("Exception is " +e);
+			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
 		}
 		return incidentsShown;
 	}
@@ -154,20 +173,15 @@ public class LandingPage {
 					unclicked.add(incident.getText());
 			}
 			
-			if(unclicked.size()>0) 
-				throw new Exception();
-			
 		}
 		catch(Exception e) {
-			unclicked.forEach(item->{
-				Reporter.addStepLog(item+" is not clickable");
-			});
+			Reporter.addStepLog("Exception is " +e);
 			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
 		}
 		return unclicked;
 	}
 	
-	public boolean validateIncidentDisplayedOnMap(WebElement element) {
+	public boolean validateIncidentDisplayedOnMap(WebElement element) throws IOException {
 		boolean isDisplayed = false;
 		try {
 			reusableMethods.verifyIfPresent(driver, element, "popupDiv");
@@ -178,30 +192,33 @@ public class LandingPage {
 			
 		}
 		catch(Exception e) {
-			
+			Reporter.addStepLog("Exception is " +e);
+			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
 		}
 		return isDisplayed;
 	}
 	
-	public void clickCamerasHeading() {
+	public void clickCamerasHeading() throws IOException {
 		try {
 			reusableMethods.clickElement(driver, camerasHeading);
 		}
 		catch(Exception e) {
-			
+			Reporter.addStepLog("Exception is " +e);
+			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
 		}
 	}
 	
-	public void verifyCameraSearchBox() {
+	public void verifyCameraSearchBox() throws IOException {
 		try {
 			reusableMethods.verifyIfPresent(driver, searchCameras, "searchCameras");
 		}
 		catch(Exception e) {
-			
+			Reporter.addStepLog("Exception is " +e);
+			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
 		}
 	}
 	
-	public void searchForCameraPlace() {
+	public void searchForCameraPlace() throws IOException {
 		try {
 			place = cameraLocations.get(1).getText().trim();
 			searchCameras.sendKeys(place);
@@ -210,33 +227,36 @@ public class LandingPage {
 			searchCameras.sendKeys(place);
 		}
 		catch(Exception e) {
-			
+			Reporter.addStepLog("Exception is " +e);
+			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
 		}
 	}
 	
-	public boolean verifySearchedPlaceResult() {
+	public boolean verifySearchedPlaceResult() throws IOException {
 		boolean result = false;
 		try {
 			if(place.equals(cameraLocations.get(0).getText().trim()))
 				result=true;
 		}
 		catch(Exception e) {
-			
+			Reporter.addStepLog("Exception is " +e);
+			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
 		}
 		return result;
 	}
 	
-	public void clickOnSearchResult() {
+	public void clickOnSearchResult() throws IOException {
 		try {
 			reusableMethods.clickElement(driver, cameraLocations.get(0));
 			reusableMethods.explicitWait(driver, popupDiv);
 		}
 		catch(Exception e) {
-			
+			Reporter.addStepLog("Exception is " +e);
+			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
 		}
 	}
 	
-	public boolean validateSearchedPlaceIsDisplayedOnMap() {
+	public boolean validateSearchedPlaceIsDisplayedOnMap() throws IOException {
 		boolean result = false;
 		try {
 			reusableMethods.switchToNewIframe(driver, "ifCam");
@@ -245,30 +265,33 @@ public class LandingPage {
 			reusableMethods.switchToDefaultFrame(driver);
 		}
 		catch(Exception e) {
-			
+			Reporter.addStepLog("Exception is " +e);
+			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
 		}
 		return result;
 	}
 	
-	public void clickOnTolls() {
+	public void clickOnTolls() throws IOException {
 		try {
 			reusableMethods.clickElement(driver, tollsHeading);
 		}
 		catch(Exception e) {
-			
+			Reporter.addStepLog("Exception is " +e);
+			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
 		}
 	}
 	
-	public void verifyTollSearchBox() {
+	public void verifyTollSearchBox() throws IOException {
 		try {
 			reusableMethods.verifyIfPresent(driver, searchTolls, "searchTolls");
 		}
 		catch(Exception e) {
-			
+			Reporter.addStepLog("Exception is " +e);
+			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
 		}
 	}
 	
-	public void searchForTollList() {
+	public void searchForTollList() throws IOException {
 		try {
 			place = tollLocations.get(1).getText().trim();
 			searchTolls.sendKeys(place);
@@ -277,34 +300,37 @@ public class LandingPage {
 			searchTolls.sendKeys(place);
 		}
 		catch(Exception e) {
-			
+			Reporter.addStepLog("Exception is " +e);
+			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
 		}
 	}
 	
-	public boolean verifySearchedTollResult() {
+	public boolean verifySearchedTollResult() throws IOException {
 		boolean result = false;
 		try {
 			if(place.equals(tollLocations.get(0).getText().trim()))
 				result=true;
 		}
 		catch(Exception e) {
-			
+			Reporter.addStepLog("Exception is " +e);
+			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
 		}
 		return result;
 	}
 	
-	public void clickOnTollSearchResult() {
+	public void clickOnTollSearchResult() throws IOException {
 		try {
-			reusableMethods.waitForPageReady();
+			reusableMethods.waitForPageReady(driver);
 			reusableMethods.clickElement(driver, tollLocations.get(0));
 			reusableMethods.explicitWait(driver, popupDiv);
 		}
 		catch(Exception e) {
-			
+			Reporter.addStepLog("Exception is " +e);
+			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
 		}
 	}
 	
-	public boolean validateSearchedTollIsDisplayedOnMap() {
+	public boolean validateSearchedTollIsDisplayedOnMap() throws IOException {
 		boolean result = false;
 		try {
 			reusableMethods.switchToNewIframe(driver, "myDropdownList");
@@ -313,7 +339,8 @@ public class LandingPage {
 			reusableMethods.switchToDefaultFrame(driver);
 		}
 		catch(Exception e) {
-			
+			Reporter.addStepLog("Exception is " +e);
+			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
 		}
 		return result;
 	}

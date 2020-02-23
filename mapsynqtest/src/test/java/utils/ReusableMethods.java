@@ -94,22 +94,22 @@ public class ReusableMethods {
 		return driver;
 	}
 	
-	public void launchPage(String url)
+	public void launchPage(String url) throws IOException
 	{
 		try {
 			driver.manage().window().maximize();
 			driver.manage().timeouts().pageLoadTimeout(15, TimeUnit.SECONDS);
 			driver.get(url);
-			waitForPageReady();
+			waitForPageReady(driver);
 		}
 		catch(Exception e) {
-			System.out.println(e);
-			Logger.getLogger("Exception is" +e);
+			Reporter.addStepLog("Exception is " +e);
+			Reporter.addScreenCaptureFromPath(captureScreenshot(driver));
 		}
 		
 	}
 	
-	public void waitForPageReady() {
+	public void waitForPageReady(WebDriver driver) throws IOException {
         ExpectedCondition<Boolean> expectation = new
                 ExpectedCondition<Boolean>() {
                     public Boolean apply(WebDriver driver) {
@@ -121,56 +121,60 @@ public class ReusableMethods {
             WebDriverWait wait = new WebDriverWait(driver, 30);
             wait.until(expectation);
         } catch (Exception e) {
-        	System.out.println(e);
-			Logger.getLogger("Exception is" +e);
+        	Reporter.addStepLog("Exception is " +e);
+			Reporter.addScreenCaptureFromPath(captureScreenshot(driver));
         }
     }
 
 	
-	public void enterText(WebDriver driver,WebElement element, String text){
+	public void enterText(WebDriver driver,WebElement element, String text) throws IOException{
 		try{
 			element.sendKeys(text);
 		}
 
 		catch(Exception e){
-			Logger.getLogger("Exception is" +e);
+			Reporter.addStepLog("Exception is " +e);
+			Reporter.addScreenCaptureFromPath(captureScreenshot(driver));
 		}
 	}
 
-	public void clickElement(WebDriver driver,WebElement element){
+	public void clickElement(WebDriver driver,WebElement element) throws IOException{
 		try{
 			element.click();
 		}
 
 		catch(Exception e){
-			Logger.getLogger("Exception is" +e);
+			//Reporter.addStepLog("Exception is " +e);
+			//Reporter.addScreenCaptureFromPath(captureScreenshot(driver));
 		}
 
 	}
 
-	public void selectFromDropdown(WebDriver driver,WebElement element, String dropDownValue){
+	public void selectFromDropdown(WebDriver driver,WebElement element, String dropDownValue) throws IOException{
 		try{
 			Select options = new Select(element);
 			options.selectByVisibleText(dropDownValue);
 		}
 
 		catch(Exception e){
-			Logger.getLogger("Exception is" +e);
+			Reporter.addStepLog("Exception is " +e);
+			Reporter.addScreenCaptureFromPath(captureScreenshot(driver));
 		}
 	}
 
-	public void scrollIntoView(WebDriver driver,WebElement element){
+	public void scrollIntoView(WebDriver driver,WebElement element) throws IOException{
 		try{
 			JavascriptExecutor js = (JavascriptExecutor) driver;
 			js.executeScript("arguments[0].scrollIntoView(true);", element);
 		}
 
 		catch(Exception e){
-			Logger.getLogger("Exception is" +e);
+			Reporter.addStepLog("Exception is " +e);
+			Reporter.addScreenCaptureFromPath(captureScreenshot(driver));
 		}
 	}
 
-	public WebElement detectHiddenElement(WebDriver driver, String xpath ){
+	public WebElement detectHiddenElement(WebDriver driver, String xpath ) throws IOException{
 		WebElement element=null;
 		try{
 			List<WebElement> elements= driver.findElements(By.xpath(xpath));
@@ -186,7 +190,8 @@ public class ReusableMethods {
 		}
 
 		catch(Exception e){
-			Logger.getLogger("Exception is" +e);
+			Reporter.addStepLog("Exception is " +e);
+			Reporter.addScreenCaptureFromPath(captureScreenshot(driver));
 		}
 
 		return element;
@@ -213,14 +218,15 @@ public class ReusableMethods {
 		}
 	}
 	
-	public void explicitWait(WebDriver driver, WebElement element){
+	public void explicitWait(WebDriver driver, WebElement element) throws IOException{
 		try{
 			Wait<WebDriver> wait = new WebDriverWait(driver,10);
 			wait.until(ExpectedConditions.elementToBeClickable(element));
 		}
 		
 		catch(Exception e){
-			Logger.getLogger("Exception is" +e);
+			Reporter.addStepLog("Exception is " +e);
+			Reporter.addScreenCaptureFromPath(captureScreenshot(driver));
 		}
 	}
 	
@@ -232,12 +238,12 @@ public class ReusableMethods {
 			FileUtils.copyFile(sourcePath, destinationPath);
 		}
 		catch(Exception e) {
-			Logger.getLogger("Exception is" +e);
+			Reporter.addStepLog("Exception is " +e);
 		}
 		return destinationPath.toString();
 	}
 	
-	public boolean validateIfActive(WebElement element, String classVal) {
+	public boolean validateIfActive(WebElement element, String classVal) throws IOException {
 		boolean isActive = false;
 		try {
 			List<String> classes = Arrays.asList(element.getAttribute("class").split(" "));
@@ -245,26 +251,29 @@ public class ReusableMethods {
 				isActive = true;
 		}
 		catch(Exception e) {
-			
+			Reporter.addStepLog("Exception is " +e);
+			Reporter.addScreenCaptureFromPath(captureScreenshot(driver));
 		}
 		return isActive;
 	}
 	
-	public void switchToNewIframe(WebDriver driver, String frameId) {
+	public void switchToNewIframe(WebDriver driver, String frameId) throws IOException {
 		try {
 			driver.switchTo().frame(frameId);
 		}
 		catch(Exception e) {
-			
+			Reporter.addStepLog("Exception is " +e);
+			Reporter.addScreenCaptureFromPath(captureScreenshot(driver));
 		}
 	}
 	
-	public void switchToDefaultFrame(WebDriver driver) {
+	public void switchToDefaultFrame(WebDriver driver) throws IOException {
 		try {
 			driver.switchTo().defaultContent();
 		}
 		catch(Exception e) {
-			
+			Reporter.addStepLog("Exception is " +e);
+			Reporter.addScreenCaptureFromPath(captureScreenshot(driver));
 		}
 	}
 		   
