@@ -126,6 +126,133 @@ public class Tests extends TestBase {
 			
 		}
 	}
+	
+	@Given("^clicks on camera tab$")
+	public void clicks_on_camera_tab() {
+	    try {
+	    	landingPage.clickCamerasHeading();
+	    }
+	    catch(Exception e) {
+	    	
+	    }
+	    
+	}
+
+	@Given("^verifies search box being displayed$")
+	public void verifies_search_box_being_displayed() {
+	    try {
+	    	landingPage.verifyCameraSearchBox();
+	    }
+	    catch(Exception e) {
+	    	
+	    }
+	}
+
+	@Then("^searches for a location from among the list$")
+	public void searches_for_a_location_from_among_the_list() {
+	    try {
+	    	landingPage.searchForCameraPlace();
+	    }
+	    catch(Exception e) {
+	    	
+	    }
+	   
+	}
+
+	@Then("^system displays only the specific location that has been searched$")
+	public void system_displays_only_the_specific_location_that_has_been_searched() {
+	    try {
+	    	Assert.assertTrue("The location in the search result does not match", landingPage.verifySearchedPlaceResult());
+	    }
+	    catch(Exception e) {
+	    	
+	    }
+	}
+
+	@Then("^user clicks on the search result$")
+	public void user_clicks_on_the_search_result() {
+	    try {
+	    	landingPage.clickOnSearchResult();
+	    }
+	    catch(Exception e) {
+	    	
+	    }
+	}
+
+	@Then("^system displays the same on the map$")
+	public void system_displays_the_same_on_the_map() {
+	    try {
+	    	Assert.assertTrue(landingPage.validateSearchedPlaceIsDisplayedOnMap());
+	    }
+	    catch(Exception e) {
+	    	
+	    }
+	}
+	
+	@Given("^clicks on tolls tab$")
+	public void clicks_on_tolls_tab() {
+	    try {
+	    	landingPage.clickOnTolls();
+	    }
+	    catch(Exception e) {
+	    	landingPage.clickOnTolls();
+	    }
+	    
+	}
+
+	@Given("^verifies search box for tolls is being displayed$")
+	public void verifies_search_box_for_tolls_is_being_displayed() {
+	    try {
+	    	landingPage.verifyTollSearchBox();
+	    }
+	    catch(Exception e) {
+	    	
+	    }
+	}
+
+	@Then("^searches for a location from among the toll list$")
+	public void searches_for_a_location_from_among_the_toll_list() {
+	    try {
+	    	landingPage.searchForTollList();
+	    }
+	    catch(Exception e) {
+	    	
+	    }
+	}
+
+	@Then("^system displays only the specific place that has been searched$")
+	public void system_displays_only_the_specific_place_that_has_been_searched() {
+	    try {
+	    	Assert.assertTrue("The location of toll in the search result does not match", landingPage.verifySearchedTollResult());
+	    }
+	    catch(Exception e) {
+	    	
+	    }
+	}
+
+	@Then("^user clicks on the search result of the tolls$")
+	public void user_clicks_on_the_search_result_of_the_tolls() {
+	    try {
+	    	landingPage.clickOnTollSearchResult();
+	    }
+	    catch(Exception e) {
+	    	
+	    }
+	}
+
+	@Then("^system displays the specific toll details on the map$")
+	public void system_displays_the_specific_toll_details_on_the_map() {
+	    try {
+	    	Assert.assertTrue(landingPage.validateSearchedTollIsDisplayedOnMap());
+	    }
+	    catch(Exception e) {
+	    	
+	    }
+	}
+
+
+
+
 
 
 

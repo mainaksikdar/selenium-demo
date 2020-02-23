@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
@@ -238,6 +239,24 @@ public class ReusableMethods {
 			
 		}
 		return isActive;
+	}
+	
+	public void switchToNewIframe(WebDriver driver, String frameId) {
+		try {
+			driver.switchTo().frame(frameId);
+		}
+		catch(Exception e) {
+			
+		}
+	}
+	
+	public void switchToDefaultFrame(WebDriver driver) {
+		try {
+			driver.switchTo().defaultContent();
+		}
+		catch(Exception e) {
+			
+		}
 	}
 		   
 }
