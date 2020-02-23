@@ -42,6 +42,7 @@ import io.github.bonigarcia.wdm.FirefoxDriverManager;
 import io.github.bonigarcia.wdm.InternetExplorerDriverManager;
 import models.TestConfig;
 
+
 public class ReusableMethods {
 
 	public WebDriver driver;
@@ -74,6 +75,14 @@ public class ReusableMethods {
 				ieOptions.setCapability(InternetExplorerDriver.IGNORE_ZOOM_SETTING, true);
 				ieOptions.merge(capability);
 				driver = new InternetExplorerDriver(ieOptions);
+			}
+			else if(browser.equalsIgnoreCase("headless")) {
+				DesiredCapabilities capability = DesiredCapabilities.chrome();
+				ChromeDriverManager.chromedriver().setup();
+				ChromeOptions chromeOptions = new ChromeOptions();
+				chromeOptions.addArguments("headless");
+				chromeOptions.merge(capability);
+				driver = new ChromeDriver(chromeOptions);
 			}
 			else
 				throw new Exception("Browser name does not match with any of the choices");

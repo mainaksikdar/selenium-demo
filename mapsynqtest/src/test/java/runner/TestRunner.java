@@ -16,7 +16,8 @@ import cucumber.api.junit.Cucumber;
 		features = "./src/test/resources/features/mapsynq.feature",
 		glue={"stepDefs"}, 
 		dryRun = false,
-		plugin = {"com.cucumber.listener.ExtentCucumberFormatter:target/cucumber-reports/report.html"}
+		plugin = {"com.cucumber.listener.ExtentCucumberFormatter:target/cucumber-reports/report.html"},
+		tags={"@Smoke,@Regression"}
 		)
 
 public class TestRunner {
