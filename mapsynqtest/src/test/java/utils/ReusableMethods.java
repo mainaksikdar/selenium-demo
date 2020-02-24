@@ -47,7 +47,7 @@ public class ReusableMethods {
 
 	public WebDriver driver;
 	
-	public WebDriver getDriver(TestConfig testConfig) {
+	public WebDriver getDriver(TestConfig testConfig) throws IOException{
 		try{
 			String browser = testConfig.getBrowser();
 			
@@ -89,7 +89,8 @@ public class ReusableMethods {
 		}
 
 		catch(Exception e){
-			Reporter.addStepLog(e.getMessage());
+			Reporter.addScreenCaptureFromPath(captureScreenshot(driver));
+			e.printStackTrace();
 		}
 		return driver;
 	}
@@ -103,8 +104,8 @@ public class ReusableMethods {
 			waitForPageReady(driver);
 		}
 		catch(Exception e) {
-			Reporter.addStepLog("Exception is " +e);
 			Reporter.addScreenCaptureFromPath(captureScreenshot(driver));
+			e.printStackTrace();
 		}
 		
 	}
@@ -121,8 +122,8 @@ public class ReusableMethods {
             WebDriverWait wait = new WebDriverWait(driver, 30);
             wait.until(expectation);
         } catch (Exception e) {
-        	Reporter.addStepLog("Exception is " +e);
-			Reporter.addScreenCaptureFromPath(captureScreenshot(driver));
+        	Reporter.addScreenCaptureFromPath(captureScreenshot(driver));
+			e.printStackTrace();
         }
     }
 
@@ -133,8 +134,8 @@ public class ReusableMethods {
 		}
 
 		catch(Exception e){
-			Reporter.addStepLog("Exception is " +e);
 			Reporter.addScreenCaptureFromPath(captureScreenshot(driver));
+			e.printStackTrace();
 		}
 	}
 
@@ -144,8 +145,8 @@ public class ReusableMethods {
 		}
 
 		catch(Exception e){
-			//Reporter.addStepLog("Exception is " +e);
-			//Reporter.addScreenCaptureFromPath(captureScreenshot(driver));
+			Reporter.addScreenCaptureFromPath(captureScreenshot(driver));
+			e.printStackTrace();
 		}
 
 	}
@@ -157,8 +158,8 @@ public class ReusableMethods {
 		}
 
 		catch(Exception e){
-			Reporter.addStepLog("Exception is " +e);
 			Reporter.addScreenCaptureFromPath(captureScreenshot(driver));
+			e.printStackTrace();
 		}
 	}
 
@@ -169,8 +170,8 @@ public class ReusableMethods {
 		}
 
 		catch(Exception e){
-			Reporter.addStepLog("Exception is " +e);
 			Reporter.addScreenCaptureFromPath(captureScreenshot(driver));
+			e.printStackTrace();
 		}
 	}
 
@@ -190,8 +191,8 @@ public class ReusableMethods {
 		}
 
 		catch(Exception e){
-			Reporter.addStepLog("Exception is " +e);
 			Reporter.addScreenCaptureFromPath(captureScreenshot(driver));
+			e.printStackTrace();
 		}
 
 		return element;
@@ -208,9 +209,8 @@ public class ReusableMethods {
 		}
 
 		catch(Exception e){
-			Reporter.addStepLog("Issue with "+name+" element, Exception is " +e);
 			Reporter.addScreenCaptureFromPath(captureScreenshot(driver));
-			
+			e.printStackTrace();
 		}
 
 		finally{
@@ -225,8 +225,8 @@ public class ReusableMethods {
 		}
 		
 		catch(Exception e){
-			Reporter.addStepLog("Exception is " +e);
 			Reporter.addScreenCaptureFromPath(captureScreenshot(driver));
+			e.printStackTrace();
 		}
 	}
 	
@@ -239,6 +239,7 @@ public class ReusableMethods {
 		}
 		catch(Exception e) {
 			Reporter.addStepLog("Exception is " +e);
+			e.printStackTrace();
 		}
 		return destinationPath.toString();
 	}
@@ -251,8 +252,8 @@ public class ReusableMethods {
 				isActive = true;
 		}
 		catch(Exception e) {
-			Reporter.addStepLog("Exception is " +e);
 			Reporter.addScreenCaptureFromPath(captureScreenshot(driver));
+			e.printStackTrace();
 		}
 		return isActive;
 	}
@@ -262,8 +263,8 @@ public class ReusableMethods {
 			driver.switchTo().frame(frameId);
 		}
 		catch(Exception e) {
-			Reporter.addStepLog("Exception is " +e);
 			Reporter.addScreenCaptureFromPath(captureScreenshot(driver));
+			e.printStackTrace();
 		}
 	}
 	
@@ -272,8 +273,8 @@ public class ReusableMethods {
 			driver.switchTo().defaultContent();
 		}
 		catch(Exception e) {
-			Reporter.addStepLog("Exception is " +e);
 			Reporter.addScreenCaptureFromPath(captureScreenshot(driver));
+			e.printStackTrace();
 		}
 	}
 		   

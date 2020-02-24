@@ -166,13 +166,7 @@ public class Tests extends TestBase {
 	    	Assert.assertTrue(landingPage.validateSearchedTollIsDisplayedOnMap());
 	    	Reporter.addStepLog("System displays the specific toll on the map");
 	}
-
-
-
-
-
-
-
+	
 	@After
 	public void cleanUp() throws Exception	{
 		if(driver!=null)

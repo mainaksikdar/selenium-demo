@@ -24,6 +24,11 @@ public class TestRunner {
 
 	 @AfterClass
 	 public static void writeExtentReport() {
-		 Reporter.loadXMLConfig(new File("src/test/java/config/extent-config.xml"));
+		 try {
+			 Reporter.loadXMLConfig(new File("src/test/java/config/extent-config.xml"));
+		 }
+		 catch(Exception e) {
+			 e.printStackTrace();
+		 }
 	 }
 }

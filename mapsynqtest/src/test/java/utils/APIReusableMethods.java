@@ -1,7 +1,6 @@
 package utils;
 
 import java.util.HashMap;
-
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 
@@ -20,6 +19,7 @@ public class APIReusableMethods {
 		HashMap<String, Object> headers	= new HashMap<String,Object>();
 		headers = headersForms();
 		RestAssured.baseURI = baseUri;
+		//log.info("Sending request to "+baseUri);
 		response = RestAssured.given().
 				when().log().all().headers(headers).get();
 		}

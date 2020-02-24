@@ -84,7 +84,7 @@ public class LandingPage {
 		}
 
 		catch(Exception e) {
-			Reporter.addStepLog("Exception is " +e);
+			e.printStackTrace();
 		}
 	}
 	
@@ -93,8 +93,8 @@ public class LandingPage {
 			reusableMethods.verifyIfPresent(driver, logo, "logo");
 		}
 		catch(Exception e) {
-			Reporter.addStepLog("Exception is " +e);
 			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
+			e.printStackTrace();
 		}
 	}
 	
@@ -103,8 +103,8 @@ public class LandingPage {
 			reusableMethods.verifyIfPresent(driver, mapSection, "mapSection");
 		}
 		catch(Exception e) {
-			Reporter.addStepLog("Exception is " +e);
 			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
+			e.printStackTrace();
 		}
 	}
 	
@@ -118,8 +118,8 @@ public class LandingPage {
 			reusableMethods.verifyIfPresent(driver, tollsHeading, "tollsHeading");
 		}
 		catch (Exception e) {
-			Reporter.addStepLog("Exception is " +e);
 			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
+			e.printStackTrace();
 		}
 	}
 	
@@ -130,8 +130,8 @@ public class LandingPage {
 			isActive = reusableMethods.validateIfActive(liveTab, "tab_active");
 		}
 		catch(Exception e) {
-			Reporter.addStepLog("Exception is " +e);
 			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
+			e.printStackTrace();
 		}
 		
 		return isActive;
@@ -143,8 +143,8 @@ public class LandingPage {
 			isActive = reusableMethods.validateIfActive(incidentsHeading, "ui-state-active");
 		}
 		catch(Exception e) {
-			Reporter.addStepLog("Exception is " +e);
 			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
+			e.printStackTrace();
 		}
 		return isActive;
 	}
@@ -156,8 +156,8 @@ public class LandingPage {
 				incidentsShown = true;
 		}
 		catch(Exception e) {
-			Reporter.addStepLog("Exception is " +e);
 			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
+			e.printStackTrace();
 		}
 		return incidentsShown;
 	}
@@ -175,8 +175,8 @@ public class LandingPage {
 			
 		}
 		catch(Exception e) {
-			Reporter.addStepLog("Exception is " +e);
 			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
+			e.printStackTrace();
 		}
 		return unclicked;
 	}
@@ -192,8 +192,8 @@ public class LandingPage {
 			
 		}
 		catch(Exception e) {
-			Reporter.addStepLog("Exception is " +e);
 			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
+			e.printStackTrace();
 		}
 		return isDisplayed;
 	}
@@ -203,8 +203,8 @@ public class LandingPage {
 			reusableMethods.clickElement(driver, camerasHeading);
 		}
 		catch(Exception e) {
-			Reporter.addStepLog("Exception is " +e);
 			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
+			e.printStackTrace();
 		}
 	}
 	
@@ -213,8 +213,8 @@ public class LandingPage {
 			reusableMethods.verifyIfPresent(driver, searchCameras, "searchCameras");
 		}
 		catch(Exception e) {
-			Reporter.addStepLog("Exception is " +e);
 			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
+			e.printStackTrace();
 		}
 	}
 	
@@ -227,8 +227,8 @@ public class LandingPage {
 			searchCameras.sendKeys(place);
 		}
 		catch(Exception e) {
-			Reporter.addStepLog("Exception is " +e);
 			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
+			e.printStackTrace();
 		}
 	}
 	
@@ -239,8 +239,8 @@ public class LandingPage {
 				result=true;
 		}
 		catch(Exception e) {
-			Reporter.addStepLog("Exception is " +e);
 			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
+			e.printStackTrace();
 		}
 		return result;
 	}
@@ -251,8 +251,8 @@ public class LandingPage {
 			reusableMethods.explicitWait(driver, popupDiv);
 		}
 		catch(Exception e) {
-			Reporter.addStepLog("Exception is " +e);
 			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
+			e.printStackTrace();
 		}
 	}
 	
@@ -265,8 +265,8 @@ public class LandingPage {
 			reusableMethods.switchToDefaultFrame(driver);
 		}
 		catch(Exception e) {
-			Reporter.addStepLog("Exception is " +e);
 			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
+			e.printStackTrace();
 		}
 		return result;
 	}
@@ -276,8 +276,8 @@ public class LandingPage {
 			reusableMethods.clickElement(driver, tollsHeading);
 		}
 		catch(Exception e) {
-			Reporter.addStepLog("Exception is " +e);
 			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
+			e.printStackTrace();
 		}
 	}
 	
@@ -286,8 +286,8 @@ public class LandingPage {
 			reusableMethods.verifyIfPresent(driver, searchTolls, "searchTolls");
 		}
 		catch(Exception e) {
-			Reporter.addStepLog("Exception is " +e);
 			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
+			e.printStackTrace();
 		}
 	}
 	
@@ -300,8 +300,8 @@ public class LandingPage {
 			searchTolls.sendKeys(place);
 		}
 		catch(Exception e) {
-			Reporter.addStepLog("Exception is " +e);
 			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
+			e.printStackTrace();
 		}
 	}
 	
@@ -312,8 +312,8 @@ public class LandingPage {
 				result=true;
 		}
 		catch(Exception e) {
-			Reporter.addStepLog("Exception is " +e);
 			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
+			e.printStackTrace();
 		}
 		return result;
 	}
@@ -325,8 +325,8 @@ public class LandingPage {
 			reusableMethods.explicitWait(driver, popupDiv);
 		}
 		catch(Exception e) {
-			Reporter.addStepLog("Exception is " +e);
 			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
+			e.printStackTrace();
 		}
 	}
 	
@@ -339,8 +339,8 @@ public class LandingPage {
 			reusableMethods.switchToDefaultFrame(driver);
 		}
 		catch(Exception e) {
-			Reporter.addStepLog("Exception is " +e);
 			Reporter.addScreenCaptureFromPath(reusableMethods.captureScreenshot(driver));
+			e.printStackTrace();
 		}
 		return result;
 	}
